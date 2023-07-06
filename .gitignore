@@ -1,3 +1,5 @@
+#Generated Files 
+*.bib
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
