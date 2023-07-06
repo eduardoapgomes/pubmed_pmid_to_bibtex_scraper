@@ -53,35 +53,3 @@ def new_bib_entry(line, k, N, fileoutname):
             return line
     write_new_bib_entry(bib_entry, fileoutname)
     pass
-
-
-filename = 'sample_big.txt'
-fileoutname = 'references2'
-N = num_of_lines_in_file(filename)
-file_out = open(fileoutname+'.bib', 'w', encoding="utf-8")
-index = 0
-with open(filename, 'r', encoding="utf-8") as f:
-    # Parallel
-    Bib = Parallel(n_jobs=-1,
-                   verbose=100,
-                   timeout=None,
-                   return_as='list')(delayed(new_bib_entry)
-                                     (f.readline().strip(), k, N, fileoutname)for k in range(N))
-    # Try again the files with error (series)
-    Bib = [k for k in Bib if k is not None]
-    if len(Bib) > 0:
-        Bib = Parallel(n_jobs=1,
-                       verbose=100,
-                       timeout=None,
-                       return_as='list')(delayed(new_bib_entry)
-                                         (Bib[k], k, len(Bib), fileoutname)for k in range(len(Bib)))
-    Bib = [k for k in Bib if k is not None]
-if len(Bib) > 0:
-    print(f'Report of problematic pmids')
-    with open('error_'+fileoutname+'.pmid', 'w', encoding="utf-8") as f:
-        for pmid in Bib:
-            f.write(pmid + '\n')
-            print(f'{pmid}')
-else:
-    print('All references converted without issues')
-print('done!')
