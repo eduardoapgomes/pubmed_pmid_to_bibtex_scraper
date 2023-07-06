@@ -25,7 +25,7 @@ def write_new_bib_entry(bib_entry, fileoutname):
         bib_entry (str): BibTeX entry to be written.
         fileoutname (str): Name of the output file.
     """
-    with open(fileoutname+'.bib', 'a', encoding="utf-8") as file_out:
+    with open(fileoutname, 'a', encoding="utf-8") as file_out:
         file_out.write(bib_entry + '\n')
 
 

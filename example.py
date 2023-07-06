@@ -2,6 +2,7 @@
 
 import pubmed2bib.converter as converter
 
+
 # Example usage
 input_filename = 'sample_pmids.txt'
 output_filename = 'converted_references.bib'
